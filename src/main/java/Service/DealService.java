@@ -3,10 +3,13 @@ package Service;
 
 import Domain.Deal;
 import java.time.LocalDate;
+import static java.time.LocalDate.parse;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class DealService {
     
@@ -27,6 +30,30 @@ public class DealService {
         Deal targetDeal = null;
         for(Deal deal : dealList){
             if(deal.getId() == id) {
+                targetDeal = deal;
+                break;
+            }
+        }
+        return targetDeal;
+    }
+    
+    public static Deal findByAgent(String agent){
+        Deal targetDeal = null;
+        for(Deal deal : dealList){
+            if(deal.getAgent().equals(agent) 
+                    ) {
+                targetDeal = deal;
+                break;
+            }
+        }
+        return targetDeal;
+    }
+    
+    public static Deal findByDate(String date){
+        Deal targetDeal = null;
+        for(Deal deal : dealList){
+            if(deal.getDate().equals(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US))) 
+                    ) {
                 targetDeal = deal;
                 break;
             }
