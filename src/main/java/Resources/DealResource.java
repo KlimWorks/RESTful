@@ -37,7 +37,7 @@ public class DealResource {
     
     @GET
     @Path("/agents/{agent}")
-    public Response getOneWithAgentAndDate(@PathParam("agent") String agent) {
+    public Response getOneWithAgent(@PathParam("agent") String agent) {
         Deal deal = DealService.findByAgent(agent);
         return Response.ok(deal).build();
 }
@@ -47,6 +47,22 @@ public class DealResource {
     public Response getOneWithDate(@PathParam("date") String date) {
         Deal deal = DealService.findByDate(date);
         return Response.ok(deal).build();
+}
+    @GET
+    @Path("/agents/{agent}/dates/{date}")
+    public Response getAllWithAgentAndDate(@PathParam("agent") String agent,
+                                           @PathParam("date") String date) {
+        List<Deal> deals = DealService.findByAgentAndDate(agent, date);
+        return Response.ok(deals).build();
+}
+    
+    @GET
+    @Path("/agents/{agent}/startdate/{startdate}/enddate/{enddate}")
+    public Response getAllWithAgentAndPeriod(@PathParam("agent") String agent,
+                                           @PathParam("startdate") String startdate,
+                                           @PathParam("enddate") String enddate) {
+        List<Deal> deals = DealService.findByAgentAndPeriod(agent, startdate, enddate);
+        return Response.ok(deals).build();
 }
 }
 

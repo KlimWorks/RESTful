@@ -37,6 +37,7 @@ public class DealService {
         return targetDeal;
     }
     
+    //Make this List!
     public static Deal findByAgent(String agent){
         Deal targetDeal = null;
         for(Deal deal : dealList){
@@ -49,6 +50,7 @@ public class DealService {
         return targetDeal;
     }
     
+    //Make this List!
     public static Deal findByDate(String date){
         Deal targetDeal = null;
         for(Deal deal : dealList){
@@ -59,5 +61,30 @@ public class DealService {
             }
         }
         return targetDeal;
+    }
+    
+    public static List<Deal> findByAgentAndDate(String agent, String date){
+        List<Deal> targetList = new ArrayList<>();
+        for(Deal deal : dealList){
+            if(deal.getAgent().equals(agent) &&
+                    deal.getDate().equals(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US))) 
+                    ) {
+                targetList.add(deal);
+            }
+        }
+        return targetList;
+    }
+    
+    public static List<Deal> findByAgentAndPeriod(String agent, String startDate, String endDate){
+        List<Deal> targetList = new ArrayList<>();
+        for(Deal deal : dealList){
+            if(deal.getAgent().equals(agent) &&
+                    deal.getDate().isAfter(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US))) &&
+                    deal.getDate().isBefore(LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US)))
+                    ) {
+                targetList.add(deal);
+            }
+        }
+        return targetList;
     }
 }
