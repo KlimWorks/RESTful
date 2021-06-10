@@ -3,7 +3,6 @@ package Service;
 
 import Domain.Deal;
 import java.time.LocalDate;
-import static java.time.LocalDate.parse;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,42 +36,40 @@ public class DealService {
         return targetDeal;
     }
     
-    //Make this List!
-    public static Deal findByAgent(String agent){
-        Deal targetDeal = null;
+    public static List<Deal> findByAgent(String agent){
+        List<Deal> targetList = new ArrayList<>();
         for(Deal deal : dealList){
             if(deal.getAgent().equals(agent) 
                     ) {
-                targetDeal = deal;
+                targetList.add(deal);
                 break;
             }
         }
-        return targetDeal;
+        return targetList;
     }
     
-    //Make this List!
-    public static Deal findByDate(String date){
-        Deal targetDeal = null;
+    public static List<Deal> findByDate(String date){
+        List<Deal> targetList = new ArrayList<>();
         for(Deal deal : dealList){
             if(deal.getDate().equals(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US))) 
                     ) {
-                targetDeal = deal;
+                targetList.add(deal);
                 break;
             }
         }
-        return targetDeal;
+        return targetList;
     }
     
-    public static List<Deal> findByAgentAndDate(String agent, String date){
-        List<Deal> targetList = new ArrayList<>();
+    public static Deal findByAgentAndDate(String agent, String date){
+        Deal targetDeal = null;
         for(Deal deal : dealList){
             if(deal.getAgent().equals(agent) &&
                     deal.getDate().equals(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US))) 
                     ) {
-                targetList.add(deal);
+                targetDeal = deal;
             }
         }
-        return targetList;
+        return targetDeal;
     }
     
     public static List<Deal> findByAgentAndPeriod(String agent, String startDate, String endDate){
